@@ -65,7 +65,6 @@ export interface ProductTypeDetailsPageProps extends WithStyles<typeof styles> {
   onAttributeAdd: (type: AttributeTypeEnum) => void;
   onAttributeDelete: (id: string, event: React.MouseEvent<any>) => void;
   onAttributeUpdate: (id: string) => void;
-  onBack: () => void;
   onDelete: () => void;
   onSubmit: (data: ProductTypeForm) => void;
 }
@@ -84,7 +83,6 @@ const ProductTypeDetailsPage = withStyles(styles, {
     onAttributeAdd,
     onAttributeDelete,
     onAttributeUpdate,
-    onBack,
     onDelete,
     onSubmit
   }: ProductTypeDetailsPageProps) => {
@@ -120,9 +118,9 @@ const ProductTypeDetailsPage = withStyles(styles, {
     };
     return (
       <Form errors={errors} initial={formInitialData} onSubmit={onSubmit}>
-        {({ change, data, hasChanged, submit }) => (
+        {({ change, data, hasChanged, reset, submit }) => (
           <Container width="md">
-            <PageHeader title={pageTitle} onBack={onBack} />
+            <PageHeader title={pageTitle} back={true} />
             <div className={classes.root}>
               <div>
                 <ProductTypeDetails
@@ -177,7 +175,7 @@ const ProductTypeDetailsPage = withStyles(styles, {
               </div>
             </div>
             <SaveButtonBar
-              onCancel={onBack}
+              onCancel={reset}
               onDelete={onDelete}
               onSave={submit}
               disabled={disabled || !hasChanged}
